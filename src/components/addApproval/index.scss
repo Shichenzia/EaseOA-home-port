@@ -1,0 +1,27 @@
+.add-approval-box-bg {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 5px;
+  min-height: 90vh;
+  .add-approval-box {
+    min-width: 1600px;
+    width: 1600px;
+    margin: 0 auto;
+    padding-top: 25px;
+    .search {
+      width: 50%;
+    }
+    .flow-list-box {
+      margin-top: 25px;
+      .title{
+        font-size: 16px;
+        // margin-bottom: 20px;
+      }
+      .flow-list{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    }
+  }
+}

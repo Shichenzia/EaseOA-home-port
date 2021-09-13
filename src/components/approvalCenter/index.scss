@@ -1,0 +1,25 @@
+.approvalCenter-box {
+  width: 100%;
+  height: 92vh;
+  min-width: 1200px;
+  min-height: 600px;
+  display: flex;
+  margin-top: 5px;
+  .left {
+    height: 100%;
+  }
+  .middle {
+    width: 350px;
+    padding: 5px 10px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .right {
+    background-color: #fff;
+    min-width: 615px;
+    width: auto;
+    margin-right: 10px;
+    margin-left: 1px;
+    width: calc(100% - 595px);
+  }
+}
