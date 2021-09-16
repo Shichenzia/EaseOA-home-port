@@ -14,7 +14,7 @@
     </div>
     <div class="header-right">
       <div class="menu-box">
-        <el-button class="btm" type="text" icon="el-icon-set-up">审批后台管理</el-button>
+        <el-button class="btm" type="text" icon="el-icon-set-up" @click="goOtherUrl">审批后台管理</el-button>
       </div>
       <div class="avatar-box">
         <span>屈君臣</span>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { goOtherUrl } from "../../common/utils";
+import { APPROVAL_URL } from "../../common/constants";
 export default {
   data() {
     return {
@@ -35,6 +37,9 @@ export default {
     handleClick() {
       console.log(this.$store);
       this.$store.commit("home/setHeadTab", this.activeName);
+    },
+    goOtherUrl() {
+      goOtherUrl(APPROVAL_URL);
     }
   }
 };
