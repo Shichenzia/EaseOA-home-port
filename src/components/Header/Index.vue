@@ -4,38 +4,50 @@
       <div class="logo">
         <img src="../../assets/logo.png" alt="" />
       </div>
-      <div class="tabs">
+      <div class="tabs" v-if="!isUserInfo">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="发起申请" name="1"></el-tab-pane>
           <el-tab-pane label="审批中心" name="2"></el-tab-pane>
           <el-tab-pane label="效率诊断" name="3"></el-tab-pane>
         </el-tabs>
       </div>
+      <div class="sub-name" v-else>账户与安全</div>
     </div>
     <div class="header-right">
       <div class="menu-box">
         <el-button class="btm" type="text" icon="el-icon-set-up" @click="goOtherUrl">审批后台管理</el-button>
       </div>
       <div class="avatar-box">
-        <span>屈君臣</span>
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+        <span>{{ this.userInfo.c_name || "匿名用户" }}</span>
+        <el-avatar src="../../assets/logo.png"></el-avatar>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { goOtherUrl } from "../../common/utils";
 import { APPROVAL_URL } from "../../common/constants";
 export default {
+  props: {
+    isUserInfo: {
+      typeof: String,
+      default: false
+    }
+  },
   data() {
     return {
-      activeName: "1"
+      activeName: "2"
     };
+  },
+  computed: {
+    ...mapState({
+      userInfo: (state) => state.user.userInfo,
+    }),
   },
   methods: {
     handleClick() {
-      console.log(this.$store);
       this.$store.commit("home/setHeadTab", this.activeName);
     },
     goOtherUrl() {

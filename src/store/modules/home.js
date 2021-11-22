@@ -1,5 +1,5 @@
 const state = {
-  headTab: "1"
+  headTab: "2"
 };
 
 const mutations = {

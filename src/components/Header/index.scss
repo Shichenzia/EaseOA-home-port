@@ -13,12 +13,23 @@
     .logo {
       border-right: 2px solid #f1f3f4;
       padding-right: 5px;
+      img{
+        width: 200px;
+      }
     }
     .tabs {
       margin: 0 10px;
       .el-tabs__nav-wrap::after{
         background-color: #fff;
       }
+    }
+
+    .sub-name {
+      margin-left: 10px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 20px;
+      font-weight: 550;
     }
   }
   .header-right{

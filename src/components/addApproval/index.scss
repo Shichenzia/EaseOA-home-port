@@ -20,7 +20,10 @@
       .flow-list{
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        // justify-content: space-between;
+        .flow-card-box{
+          margin-right: 10px;
+        }
       }
     }
   }

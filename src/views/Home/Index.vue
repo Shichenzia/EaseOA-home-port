@@ -24,6 +24,9 @@ export default {
       headTab: (state) => state.home.headTab,
     }),
   },
+  async mounted() {
+    await this.$store.dispatch("user/getUserByToken");
+  }
 };
 </script>
 
