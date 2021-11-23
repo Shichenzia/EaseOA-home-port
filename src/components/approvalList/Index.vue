@@ -15,19 +15,23 @@
     </div>
     <el-divider></el-divider>
     <div class="list">
-      <approvalCard />
-      <approvalCard />
-      <approvalCard />
-      <approvalCard />
+      <approvalCard v-for="item in workOrderList" :key="item.c_id" :workOrder="item" />
     </div>
   </div>
 </template>
 
 <script>
 import approvalCard from "../common/approvalCard/Index.vue";
+import { mapState } from 'vuex';
+
 export default {
   components: {
     approvalCard,
+  },
+  computed: {
+    ...mapState({
+      workOrderList: state => state.approval.workOrderList
+    })
   },
   data() {
     return {

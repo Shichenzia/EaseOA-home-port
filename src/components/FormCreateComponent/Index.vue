@@ -51,8 +51,8 @@ export default {
         fromTemplateid,
         creator: this.userInfo.c_id
       });
-
-      // this.$router.push('/');
+      this.$store.commit("home/setHeadTab", "2");
+      this.$router.push('/');
     }
   }
 }

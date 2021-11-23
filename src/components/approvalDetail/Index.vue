@@ -1,5 +1,5 @@
 <template>
-  <div class="approval-detail">
+  <div class="approval-detail" v-if="workOrderDetail.c_id">
     <div class="over-y">
       <div class="title">
         <el-avatar
@@ -7,34 +7,35 @@
           src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
         ></el-avatar>
         <div class="text">
-          屈君臣的请假审批
-          <el-tag type="danger" size="small">标签五</el-tag>
+          {{ workOrderDetail.username }}的{{ workOrderDetail.c_title }}审批
+          <el-tag type="danger" size="small">{{ workOrderDetail.c_title }}</el-tag>
         </div>
       </div>
       <div class="center">
         <div class="from-info">
-          <fromInfo property="申请编号" value="12545456" />
-          <fromInfo property="申请编号" value="12545456" />
-          <fromInfo property="申请编号" value="12545456" />
-          <fromInfo property="申请编号" value="12545456" />
+          <fromInfo
+            v-for="item in workOrderDetail.objectValues"
+            :key="item.c_id"
+            :property="item.c_title"
+            :value="item.c_value"
+          />
         </div>
         <el-divider></el-divider>
         <div class="flow-box">
           <el-timeline>
             <el-timeline-item
-              v-for="(activity, index) in activities"
+              v-for="(activity, index) in workOrderDetail.circulationList"
               :key="index"
-              :icon="activity.icon"
-              :type="activity.type"
-              :color="activity.color"
-              :size="activity.size"
+              :icon="activity.nodeIcon"
+              :type="activity.nodeType"
+              size="large"
             >
               <div class="flow-li-box">
                 <div class="flow-li-box-left">
-                  <div class="operator">屈君臣</div>
-                  <div class="handle">{{activity.content}}</div>
+                  <div class="operator">{{activity.username}}</div>
+                  <div class="handle">{{activity.c_message}}</div>
                 </div>
-                <div class="flow-li-box-right">{{activity.timestamp}}</div>
+                <div class="flow-li-box-right">{{activity.c_time}}</div>
               </div>
             </el-timeline-item>
           </el-timeline>
@@ -42,9 +43,9 @@
       </div>
     </div>
     <div class="footer-tool">
-      <div>
-        <el-button type="success" round>同意</el-button>
-        <el-button type="danger" round>拒绝</el-button>
+      <div v-if="workOrderClass === '1'">
+        <el-button type="success" round @click="approvalWorkOrder('1')">同意</el-button>
+        <el-button type="danger" round @click="approvalWorkOrder('0')">拒绝</el-button>
       </div>
       <div>
         <textBtn text="评论" icon="el-icon-chat-line-round" />
@@ -56,6 +57,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import fromInfo from "../common/fromInfo/Index.vue";
 import textBtn from "../common/textBtn/Index.vue";
 export default {
@@ -63,33 +65,28 @@ export default {
     fromInfo,
     textBtn,
   },
+  computed: {
+    ...mapState({
+      workOrderDetail: state => state.approval.workOrderDetail,
+      workOrderClass: state => state.approval.workOrderClass,
+      userInfo: state => state.user.userInfo,
+    })
+  },
   data() {
     return {
-      activities: [
-        {
-          content: "支持使用图标",
-          timestamp: "2018-04-12 20:46",
-          size: "large",
-          type: "primary",
-          icon: "el-icon-more",
-        },
-        {
-          content: "支持自定义颜色",
-          timestamp: "2018-04-03 20:46",
-          color: "#0bbd87",
-        },
-        {
-          content: "支持自定义尺寸",
-          timestamp: "2018-04-03 20:46",
-          size: "large",
-        },
-        {
-          content: "默认样式的节点",
-          timestamp: "2018-04-03 20:46",
-        },
-      ],
+      message: "审批了"
     };
   },
+  methods: {
+    async approvalWorkOrder(result) {
+      await this.$store.dispatch("approval/approvalWorkOrder", {
+        workOrderId: this.workOrderDetail.c_id,
+        uid: this.userInfo.c_id,
+        message: this.message,
+        result
+      });
+    }
+  }
 };
 </script>
 

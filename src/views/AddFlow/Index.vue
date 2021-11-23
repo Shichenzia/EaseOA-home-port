@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     goBack() {
+      this.$store.commit("home/setHeadTab", "2");
       this.$router.push("/");
     }
   },
@@ -62,7 +63,6 @@ export default {
     if(fromTemplateid) {
       await this.$store.dispatch('approval/getTemplateById', {id : fromTemplateid});
     }
-    
   }
 };
 </script>

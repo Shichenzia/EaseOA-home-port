@@ -13,4 +13,3 @@ export async function setUserInfo(config) {
 		.then(reslut => [null, reslut])
 		.catch(error => [error]);
 }
-
