@@ -1,7 +1,7 @@
 <template>
   <div class="header-box">
     <div class="header-left">
-      <div class="logo">
+      <div class="logo" @click="goUserInfo('/')">
         <img src="../../assets/logo.png" alt="" />
       </div>
       <div class="tabs" v-if="!isUserInfo">
@@ -15,11 +15,21 @@
     </div>
     <div class="header-right">
       <div class="menu-box">
-        <el-button class="btm" type="text" icon="el-icon-set-up" @click="goOtherUrl">审批后台管理</el-button>
+        <el-button
+          class="btm"
+          type="text"
+          icon="el-icon-set-up"
+          @click="goOtherUrl"
+          >审批后台管理</el-button
+        >
       </div>
       <div class="avatar-box">
         <span>{{ this.userInfo.c_name || "匿名用户" }}</span>
         <el-avatar src="../../assets/logo.png"></el-avatar>
+        <div>
+          <div @click="goUserInfo('./userInfo')">个人中心</div>
+          <div @click="goLogin">退出</div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,17 +38,17 @@
 <script>
 import { mapState } from "vuex";
 import { goOtherUrl } from "../../common/utils";
-import { APPROVAL_URL } from "../../common/constants";
+import { APPROVAL_URL, LOGIN_URL } from "../../common/constants";
 export default {
   props: {
     isUserInfo: {
       typeof: String,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      activeName: "2"
+      activeName: "2",
     };
   },
   computed: {
@@ -52,8 +62,16 @@ export default {
     },
     goOtherUrl() {
       goOtherUrl(APPROVAL_URL);
-    }
-  }
+    },
+
+    goUserInfo(url) {
+      this.$router.push(url);
+    },
+
+    goLogin() {
+      window.location.href = LOGIN_URL;
+    },
+  },
 };
 </script>
 

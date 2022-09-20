@@ -61,5 +61,8 @@ export function formatDate(date) {
 
 
 export function goOtherUrl(url){
-  window.location.href = url;
+  // window.location.href = url;
+  window.open(
+    url
+);
 }
